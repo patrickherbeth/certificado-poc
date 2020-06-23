@@ -68,11 +68,16 @@ public class SignaturesService {
 	private void insertSeal(PdfStamper stp) throws BadElementException, MalformedURLException, IOException, BadPdfFormatException, DocumentException {
 		Image image = Image.getInstance(IMG);
 		PdfImage stream = new PdfImage(image, "", null);
+		
 		stream.put(new PdfName("ITXT_SpecialId"), new PdfName("123456789"));
+		
 		PdfIndirectObject ref = stp.getWriter().addToBody(stream);
+		
 		image.setDirectReference(ref.getIndirectReference());
 		image.setAbsolutePosition(0, 0);
+		
 		PdfContentByte over = stp.getOverContent(1);
+		
 		over.addImage(image);
 	}
 }
